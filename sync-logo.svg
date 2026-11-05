@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Vinyl</title>
+  <circle cx="32" cy="32" r="31" fill="#222222" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#ffffff" stroke-opacity=".05" stroke-width="1"/>
+  <circle cx="32" cy="32" r="12.2" fill="#111111"/>
+  <circle cx="32" cy="32" r="7.7" fill="#1ed760"/>
+  <circle cx="32" cy="32" r="5.8" fill="#111111"/>
+</svg>

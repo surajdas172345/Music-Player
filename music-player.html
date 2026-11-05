@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vinyl — your local music player</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="sync-logo.svg">
+
+</head>
+
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="brand">
+        <div class="logo"></div>Sync
+      </div>
+      <button class="nav active" data-view="all"><svg viewBox="0 0 24 24">
+          <path d="M12 3a1 1 0 0 1 1 1v9.27A3.5 3.5 0 1 1 11 16.5V4a1 1 0 0 1 1-1z" />
+          <path d="M13 4l6 2v3l-6-2z" />
+        </svg>Songs</button>
+      <button class="nav" data-view="albums"><svg viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 12.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
+        </svg>Albums</button>
+      <button class="nav" data-view="liked"><svg viewBox="0 0 24 24">
+          <path
+            d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.7 1.1 5.6 3.2C13.9 6.1 15.6 5 17.6 5 21 5 23.100 8.400 21.600 11.800 19.500 16.400 12 21 12 21z" />
+        </svg>Liked Songs</button>
+      <div class="sep"></div>
+      <button class="ghost" id="rescan"><svg viewBox="0 0 24 24">
+          <path d="M17.6 6.4A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.8-4.2L13 11h8V3z" />
+        </svg><span>Rescan folder</span></button>
+      <button class="ghost" id="change"><svg viewBox="0 0 24 24">
+          <path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z" />
+        </svg><span>Change folder</span></button>
+      <div class="grow"></div>
+      <div class="status" id="status"></div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="top">
+        <label class="search"><svg viewBox="0 0 24 24">
+            <path
+              d="M10 2a8 8 0 1 0 4.900 14.300l5.400 5.400 1.400-1.400-5.400-5.400A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z" />
+          </svg>
+          <input id="q" placeholder="Search songs, artists, albums   ( / )" autocomplete="off"></label>
+        <select id="sort" title="Sort">
+          <option value="title">Sort: Title</option>
+          <option value="artist">Sort: Artist</option>
+          <option value="album">Sort: Album</option>
+          <option value="added">Sort: Recently modified</option>
+        </select>
+      </div>
+      <div id="content"></div>
+    </main>
+
+    <footer class="bar">
+      <div class="np">
+        <div class="cv" id="npCover"><svg viewBox="0 0 24 24">
+            <path d="M12 3v10.600A4 4 0 1 0 14 17V7h4V3z" />
+          </svg></div>
+        <div class="tx"><b id="npTitle">Nothing playing</b><span id="npArtist">Pick a song to start</span></div>
+        <button class="icon" id="npLike" title="Like"><svg viewBox="0 0 24 24">
+            <path
+              d="M12 21s-7.500-4.600-9.600-9.200C.9 8.400 3 5 6.400 5c2 0 3.700 1.100 5.600 3.200C13.900 6.100 15.600 5 17.600 5 21 5 23.100 8.400 21.600 11.800 19.500 16.400 12 21 12 21z" />
+          </svg></button>
+      </div>
+      <div class="center">
+        <div class="ctrl">
+          <button class="icon hide-s" id="shuffle" title="Shuffle (S)"><svg viewBox="0 0 24 24">
+              <path
+                d="M17 3l4 4-4 4V8h-2.600l-3 4 3 4H17v-3l4 4-4 4v-3h-3.600L9 13.200 6.200 17H3v-2h2.200l3-4-3-4H3V5h3.200L9 8.800 12.400 5H17z" />
+            </svg></button>
+          <button class="icon" id="prev" title="Previous"><svg viewBox="0 0 24 24">
+              <path d="M6 5h2v14H6zM20 5v14L9 12z" />
+            </svg></button>
+          <button class="pp" id="pp" title="Play / Pause (Space)"><svg viewBox="0 0 24 24" id="ppIcon">
+              <path d="M8 5v14l11-7z" />
+            </svg></button>
+          <button class="icon" id="next" title="Next"><svg viewBox="0 0 24 24">
+              <path d="M16 5h2v14h-2zM4 5l11 7-11 7z" />
+            </svg></button>
+          <button class="icon hide-s" id="repeat" title="Repeat (R)"><svg viewBox="0 0 24 24" id="repIcon">
+              <path d="M7 7h10v3l4-4-4-4v3H5v6h2zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2z" />
+            </svg></button>
+        </div>
+        <div class="seek"><span id="cur">0:00</span><input type="range" id="seekbar" min="0" max="1000" value="0"><span
+            id="dur">0:00</span></div>
+      </div>
+      <div class="right">
+        <button class="icon" id="mute" title="Mute (M)"><svg viewBox="0 0 24 24" id="volIcon">
+            <path d="M3 9v6h4l5 5V4L7 9zm13.500 3A4.500 4.500 0 0 0 14 8v8a4.500 4.500 0 0 0 2.500-4z" />
+          </svg></button>
+        <input type="range" id="vol" min="0" max="100" value="80">
+      </div>
+    </footer>
+  </div>
+  <input type="file" id="fallback" webkitdirectory multiple hidden>
+  <div class="toast" id="toast"></div>
+
+ <script src="script.js"></script>
+</body>
+
+</html>
